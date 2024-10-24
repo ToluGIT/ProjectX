@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  user_service:
+    build: ./user_service_env
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+
+  product_service:
+    build: ./product_service_env
+    ports:
+      - "5001:5001"
+    networks:
+      - app-network
+
+  order_service:
+    build: ./order_service_env
+    ports:
+      - "5002:5002"
+    networks:
+      - app-network
+    depends_on:
+      - user_service
+      - product_service
+
+networks:
+  app-network:
+    driver: bridge
